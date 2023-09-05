@@ -180,7 +180,9 @@ extension BLTNItemManager {
         bulletinController.modalPresentationStyle = .overFullScreen
         bulletinController.transitioningDelegate = bulletinController
         bulletinController.loadBackgroundView()
+#if !os(visionOS)
         bulletinController.setNeedsStatusBarAppearanceUpdate()
+#endif
         bulletinController.setNeedsUpdateOfHomeIndicatorAutoHidden()
         
         isPrepared = true
@@ -465,6 +467,7 @@ extension BLTNItemManager {
      * - parameter completion: An optional block to execute after presentation. Default to `nil`.
      */
     
+    @available(visionOS, unavailable)
     @objc(showBulletinInApplication:animated:completion:)
     public func showBulletin(in application: UIApplication,
                              animated: Bool = true,

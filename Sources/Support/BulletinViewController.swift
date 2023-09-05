@@ -90,10 +90,12 @@ extension BulletinViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+#if !os(visionOS)
         /// Animate status bar appearance when hiding
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         })
+#endif
 
     }
 
@@ -165,10 +167,12 @@ extension BulletinViewController {
         activityIndicator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         activityIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, visionOS 1.0, *) {
             activityIndicator.style = UIActivityIndicatorView.Style.large
         } else {
+#if !os(visionOS)
             activityIndicator.style = .whiteLarge
+#endif
         }
         activityIndicator.color = .black
         activityIndicator.isUserInteractionEnabled = false
